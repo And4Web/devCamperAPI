@@ -1,0 +1,32 @@
+This Project demonstrates my understanding about:
+
+-> HTTP Essentials
+-> Postman Client
+-> RESTful APIs
+-> Express Framework
+-> Routing and Controller Methods
+-> MongoDB Atlas and Compass
+-> Mongoose ODM
+-> Advanced Query(Pagination, filter etc)
+-> Models and Relationships
+-> Middleware(Express and Mongoose) 
+-> MongoDB Geospatial Index/GeoJSON
+-> Geocoding
+-> Custom Error Handling
+-> User Roles and Permissions
+-> Aggregation
+-> Photo Upload
+-> Authentication With JWT and Cookies
+-> Emailing Password Reset Tokens
+-> Custom Database Seeder Using Json Files
+-> Password and Token Hashing
+-> Security: NOSQL Injection, XSS, etc
+-> Creating Documentation
+-> Deployment with PM2, NGINX, SSL
+->
+->
+->
+->
+->
+->
+->
