@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
+const colors = require('colors');
 const connectDB = require('./config/db');
 
 //connect DB
@@ -29,4 +30,11 @@ app.get('/', (req, res)=>{
   res.send("<h1>Hello World!</h1>")
 })
 
-app.listen(Port, console.log( `Server is running in ${process.env.NODE_ENV} mode on Port: ${Port}.`))
+const server = app.listen(Port, console.log( `Server is running in ${process.env.NODE_ENV} mode on Port: ${Port}.`.yellow.bold))
+
+//Handle unhandles promise rejections
+process.on('unhandledRejection', (err, promise)=>{
+  console.log(`Error: ${err.message}`.red.underline.bold)
+  //Close the server and end the process
+  server.close(()=>process.exit(1));
+})
