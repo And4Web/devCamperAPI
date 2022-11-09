@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
+const errorHandler = require('./middleware/error');
 const colors = require('colors');
 const connectDB = require('./config/db');
 
@@ -28,6 +29,7 @@ if(process.env.NODE_ENV === 'DEVELOPMENT'){
 
 //mount routes
 app.use('/api/v1/bootcamps', bootcampsRoutes);
+app.use(errorHandler);
 
 app.get('/', (req, res)=>{
   res.send("<h1>Hello World!</h1>")
