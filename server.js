@@ -2,6 +2,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
+const connectDB = require('./config/db');
+
+//connect DB
+connectDB();
 
 //import routes
 const bootcampsRoutes = require('./routes/bootcamps');
@@ -25,6 +29,4 @@ app.get('/', (req, res)=>{
   res.send("<h1>Hello World!</h1>")
 })
 
-const NODE_ENV = process.env.NODE_ENV || 'DEVELOPMENT'
-
-app.listen(Port, console.log( `Server is running in ${NODE_ENV} mode on Port: ${Port}...`))
+app.listen(Port, console.log( `Server is running in ${process.env.NODE_ENV} mode on Port: ${Port}.`))
