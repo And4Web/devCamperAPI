@@ -16,6 +16,9 @@ const Port = process.env.PORT || 5000;
 
 const app = express();
 
+//Body Parser middleware
+app.use(express.json());
+
 app.use(cors());
 
 //dev logging middleware - MORGAN
