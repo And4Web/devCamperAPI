@@ -8,13 +8,17 @@ const Bootcamp = require("../models/Bootcamp");
 //@access   public
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
   // const bootcamps = await Bootcamp.find({}, { __v: 0, _id: 0 });
-
   let query;
+  //copying req.query
+  const reqQuery = {...req.query};
+  //Create query String
   let queryStr = JSON.stringify(req.query);
-  query = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
-
-  console.log("Query: ", query)
-  const bootcamps = await Bootcamp.find(JSON.parse(query))
+  //Create operators {$gt, $gte, $lt, $lte, $in}
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+  //Finding resource
+  query = Bootcamp.find(JSON.parse(queryStr))
+  //executing query
+  const bootcamps = await query;
 
   res
     .status(200)
