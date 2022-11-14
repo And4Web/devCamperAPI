@@ -37,7 +37,7 @@ app.get('/', (req, res)=>{
 
 const server = app.listen(Port, console.log( `Server is running in ${process.env.NODE_ENV} mode on Port: ${Port}.`.yellow.bold))
 
-//Handle unhandles promise rejections
+//Handle unhandled promise rejections
 process.on('unhandledRejection', (err, promise)=>{
   console.log(`Error: ${err.message}`.red.underline.bold)
   //Close the server and end the process

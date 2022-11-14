@@ -5,7 +5,7 @@ const geoCoder = require('../utils/geocoder');
 const BootcampSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: [true, 'Name is required'],
+    required: [true, 'Name is required'],
     unique: true,
     trim: true,
     minlenght: [10, 'Name must be at least 10 characters long.'],
@@ -43,11 +43,9 @@ const BootcampSchema = new mongoose.Schema({
     type: {
       type: String,
       enum: ['Point'],
-      // required: true
     },
     coordinates: {
       type: [Number],
-      // required: true,
       index: '2dsphere'
     },
     formattedAddress: String,
