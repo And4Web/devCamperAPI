@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const CourseSchema = new mongoose.Schema({
   title: {
     type: String,
+    trim: true,
     required: [true, 'Course title is required.']
   },
   description: {
@@ -23,7 +24,7 @@ const CourseSchema = new mongoose.Schema({
     required: [true, 'Minimum skill to learn this course must be provided.'],
     enum: ['beginner', 'intermediate', 'advance']
   },
-  scholarshipAvailable: {
+  scholarshipsAvailable: {
     type: Boolean,
     default: false
   },
