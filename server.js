@@ -11,6 +11,7 @@ connectDB();
 
 //import routes
 const bootcampsRoutes = require('./routes/bootcamps');
+const coursesRoutes = require('./routes/courses');
 
 dotenv.config({path: './config/config.env'});
 const Port = process.env.PORT || 5000;
@@ -29,6 +30,7 @@ if(process.env.NODE_ENV === 'DEVELOPMENT'){
 
 //mount routes
 app.use('/api/v1/bootcamps', bootcampsRoutes);
+app.use('/api/v1/courses', coursesRoutes);
 app.use(errorHandler);
 
 app.get('/', (req, res)=>{
