@@ -130,7 +130,8 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
 //@access   private
 exports.deleteBootcamp = async (req, res, next) => {
   try {
-    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+    // const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+    const bootcamp = await Bootcamp.findById(req.params.id);
     if (!bootcamp) {
       // return res.status(400).json({success: false, error: 'No bootcamp with that id found in database.'})
       return next(
@@ -140,6 +141,8 @@ exports.deleteBootcamp = async (req, res, next) => {
         )
       );
     }
+    bootcamp.remove();
+
     res.status(200).json({
       success: true,
       data: {},

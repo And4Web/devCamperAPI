@@ -137,4 +137,11 @@ BootcampSchema.pre('save', async function(next){
   next();
 })
 
+//Cascade delete courses when a bootcamp is deleted
+BootcampSchema.pre('remove', async function(next){
+  console.log(`Courses removed from bootcamp ${this._id}`)
+  await this.model('Course').deleteMany({bootcamp: this._id});
+  next()
+})
+
 module.exports = mongoose.model('Bootcamp', BootcampSchema);
