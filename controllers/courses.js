@@ -27,14 +27,19 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
 //@access   private
 
 exports.getCourse = asyncHandler(async (req, res, next) => {
-  const course = Course.findById(req.params.courseId).populate({
-    path: 'bootcamp',
-    select: 'name description'
-  })
+  const course = await Course.findById(req.params.courseId).populate({
+    path: "bootcamp",
+    select: "name description",
+  });
 
-  if(!course){
-    return next(new ErrorResponse(`No course with the id ${req.params.courseId} found.`, 404))
+  if (!course) {
+    return next(
+      new ErrorResponse(
+        `No course with the id ${req.params.courseId} found.`,
+        404
+      )
+    );
   }
 
-  res.status(200).json({success: true, data: course});
-})
+  res.status(200).json({ success: true, data: course });
+});
