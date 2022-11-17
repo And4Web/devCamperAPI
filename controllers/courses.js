@@ -1,6 +1,7 @@
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 const Course = require("../models/Course");
+const Bootcamp = require("../models/Bootcamp");
 
 //@desc     get all courses
 //@route    GET /api/v1/courses
@@ -43,3 +44,21 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: course });
 });
+
+//@desc     add a course
+//@route    POST /api/v1/bootcamps/:bootcampId/courses
+//@access   private
+//this addCourse logic has some bug, it doesn't take bootcamp id.
+exports.addCourse = asyncHandler(async (req, res, next) => {
+  req.body.bootcamp = req.params.bootcampId;
+
+  const bootcamp = Bootcamp.findById(req.params.bootcampId);
+
+  if(!bootcamp){
+    return next(new ErrorResponse(`No bootcamp with the id ${req.params.bootcampId} found.`, 404))
+  }
+
+  const course = await Course.create(req.body)
+
+  res.status(201).json({success: true, data: course});
+})
