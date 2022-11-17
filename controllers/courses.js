@@ -69,7 +69,7 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
 });
 
 //@desc     update course
-//@route    POST /api/v1/courses/:courseId
+//@route    PUT /api/v1/courses/:courseId
 //@access   private
 
 exports.updateCourse = asyncHandler(async (req, res, next) => {
@@ -91,3 +91,20 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, data: course });
 });
+
+//@desc     delete course
+//@route    DELETE /api/v1/courses/:courseId
+//@access   private
+
+exports.deleteCourse = asyncHandler(async (req, res, next) => {
+
+  const course = await Course.findById(req.params.courseId);
+
+  if(!course){
+    return next(new ErrorResponse(`No course with ID ${req.params.courseId} found.`, 404));
+  }
+
+  await course.remove()
+
+  res.status(200).json({success: true, data: {}})
+})
