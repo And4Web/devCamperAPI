@@ -48,17 +48,46 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
 //@desc     add a course
 //@route    POST /api/v1/bootcamps/:bootcampId/courses
 //@access   private
-//this addCourse logic has some bug, it doesn't take bootcamp id.
+//this addCourse logic has some bug, it doesn't take bootcamp id and returns null instead.
 exports.addCourse = asyncHandler(async (req, res, next) => {
   req.body.bootcamp = req.params.bootcampId;
 
   const bootcamp = Bootcamp.findById(req.params.bootcampId);
 
-  if(!bootcamp){
-    return next(new ErrorResponse(`No bootcamp with the id ${req.params.bootcampId} found.`, 404))
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(
+        `No bootcamp with the id ${req.params.bootcampId} found.`,
+        404
+      )
+    );
   }
 
-  const course = await Course.create(req.body)
+  const course = await Course.create(req.body);
 
-  res.status(201).json({success: true, data: course});
-})
+  res.status(201).json({ success: true, data: course });
+});
+
+//@desc     update course
+//@route    POST /api/v1/courses/:courseId
+//@access   private
+
+exports.updateCourse = asyncHandler(async (req, res, next) => {
+  let course = await Course.findById(req.params.courseId);
+
+  if (!course) {
+    return next(
+      new ErrorResponse(
+        `No course found with the id ${req.params.courseId}.`,
+        404
+      )
+    );
+  }
+
+  course = await Course.findByIdAndUpdate(req.params.courseId, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({ success: true, data: course });
+});
